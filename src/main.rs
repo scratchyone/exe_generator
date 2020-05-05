@@ -184,7 +184,10 @@ fn main() {
             queue.queue.remove(0);
         }
     });
-    rocket::ignite()
+    let cfg = rocket::config::Config::build(rocket::config::Environment::Development)
+        .port(99)
+        .unwrap();
+    rocket::custom(cfg)
         .manage(queue.clone())
         .attach(make_cors())
         .mount("/", routes![index, add, info])
