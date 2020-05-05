@@ -1,7 +1,7 @@
 function create_exe() {
   let info = document.getElementById('info').value;
   console.log(info);
-  const request = new Request('http://localhost:8000/add/' + info, {
+  const request = new Request('https://vps.scratchyone.com/add/' + info, {
     method: 'POST',
   });
   fetch(request)
@@ -28,7 +28,7 @@ function create_exe() {
 }
 
 function update_status(uuid, int) {
-  const request = new Request('http://localhost:8000/info/' + uuid, {
+  const request = new Request('https://vps.scratchyone.com/info/' + uuid, {
     method: 'GET',
   });
   fetch(request)
