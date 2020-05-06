@@ -16,7 +16,7 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use uuid::Uuid;
 const PROGRAM_NAME: &str = "demo_program";
-const TARGET: &str = "x86_64-pc-windows-msvc";
+const TARGET: &str = "x86_64-pc-windows-gnu";
 fn get_file_as_byte_vec(filename: &str) -> anyhow::Result<Vec<u8>> {
     let f = File::open(&filename)?;
     let bytes = f.bytes();
