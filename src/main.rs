@@ -105,8 +105,11 @@ fn add(queue: State<Arc<Mutex<Queue>>>, info: String) -> String {
 }
 
 fn make_cors() -> Cors {
-    let allowed_origins =
-        AllowedOrigins::some_exact(&["http://localhost:3000", "https://scratchyone.com"]);
+    let allowed_origins = AllowedOrigins::some_exact(&[
+        "http://localhost:3000",
+        "https://scratchyone.com",
+        "https://www.scratchyone.com",
+    ]);
 
     CorsOptions {
         // 5.
