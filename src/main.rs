@@ -128,22 +128,18 @@ fn make_cors() -> Cors {
 }
 
 fn compile(files: Vec<(&str, String)>) -> anyhow::Result<Vec<u8>> {
+    println!("compiling");
     for file in files.clone() {
-        let mut f = File::create(format!("{}/src/{}", PROGRAM_NAME, file.0)).unwrap();
+        let mut f = File::create(format!("{}/src/{}", PROGRAM_NAME, file.0))?;
         f.write_all(file.1.as_bytes())?;
     }
-    if cfg!(target_os = "windows") {
-        Command::new("cmd")
-            .args(&["/C", &format!("cargo build --target {}", TARGET)])
-            .current_dir("demo_program")
-            .output()?;
-    } else {
-        Command::new("sh")
-            .arg("-c")
-            .arg(format!("cargo build --target {}", TARGET))
-            .current_dir("demo_program")
-            .output()?;
-    };
+    let x = Command::new("cargo")
+        .arg(format!("build --target {}", TARGET))
+        .current_dir("demo_program")
+        .output()?;
+    /*let x = Command::new("whoami")
+    .current_dir("demo_program")
+    .output()?;*/
     let output = get_file_as_byte_vec(&format!(
         "{}/target/{}/debug/{}.exe",
         PROGRAM_NAME, TARGET, PROGRAM_NAME
@@ -157,7 +153,6 @@ fn compile(files: Vec<(&str, String)>) -> anyhow::Result<Vec<u8>> {
     }
     Ok(output)
 }
-
 fn main() {
     let queue = Arc::new(Mutex::new(Queue {
         queue: vec![],
