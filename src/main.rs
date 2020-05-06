@@ -188,14 +188,18 @@ fn main() {
             let mut queue = queue_thread.lock().unwrap();
             queue.completed.push(comp);
             queue.queue.remove(0);
+        } else {
+            std::mem::drop(queue);
         }
         let mut queue = queue_thread.lock().unwrap();
         if queue.completed.len() > 20 {
             queue.completed.remove(0);
         }
+        std::mem::drop(queue);
     });
     let cfg = rocket::config::Config::build(rocket::config::Environment::Development)
-        .port(99)
+        .port(80)
+        .address("0.0.0.0")
         .unwrap();
     rocket::custom(cfg)
         .manage(queue.clone())
