@@ -134,13 +134,13 @@ fn compile(files: Vec<(&str, String)>) -> anyhow::Result<Vec<u8>> {
     }
     if cfg!(target_os = "windows") {
         Command::new("cmd")
-            .args(&["/C", &format!("cargo build --release --target {}", TARGET)])
+            .args(&["/C", &format!("cargo build --target {}", TARGET)])
             .current_dir("demo_program")
             .output()?;
     } else {
         Command::new("sh")
             .arg("-c")
-            .arg(format!("cargo build --release --target {}", TARGET))
+            .arg(format!("cargo build --target {}", TARGET))
             .current_dir("demo_program")
             .output()?;
     };
