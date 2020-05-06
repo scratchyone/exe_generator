@@ -145,11 +145,11 @@ fn compile(files: Vec<(&str, String)>) -> anyhow::Result<Vec<u8>> {
             .output()?;
     };
     let output = get_file_as_byte_vec(&format!(
-        "{}/target/{}/release/{}.exe",
+        "{}/target/{}/debug/{}.exe",
         PROGRAM_NAME, TARGET, PROGRAM_NAME
     ))?;
     fs::remove_file(format!(
-        "{}/target/{}/release/{}.exe",
+        "{}/target/{}/debug/{}.exe",
         PROGRAM_NAME, TARGET, PROGRAM_NAME
     ))?;
     for file in files.clone() {
