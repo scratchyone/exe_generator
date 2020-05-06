@@ -152,6 +152,9 @@ fn compile(files: Vec<(&str, String)>) -> anyhow::Result<Vec<u8>> {
         "{}/target/{}/release/{}.exe",
         PROGRAM_NAME, TARGET, PROGRAM_NAME
     ))?;
+    for file in files {
+        fs::remove_file(format!("{}/src/{}", PROGRAM_NAME, file.0))?;
+    }
     Ok(output)
 }
 
