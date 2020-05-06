@@ -189,6 +189,10 @@ fn main() {
             queue.completed.push(comp);
             queue.queue.remove(0);
         }
+        let mut queue = queue_thread.lock().unwrap();
+        if queue.completed.len() > 20 {
+            queue.completed.remove(0);
+        }
     });
     let cfg = rocket::config::Config::build(rocket::config::Environment::Development)
         .port(99)
