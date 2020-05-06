@@ -165,7 +165,7 @@ fn main() {
     }));
     let queue_thread = queue.clone();
     thread::spawn(move || loop {
-        //thread::sleep(std::time::Duration::from_millis(2000));
+        thread::sleep(std::time::Duration::from_millis(500));
         let queue = queue_thread.lock().unwrap();
         if queue.queue.len() > 0 {
             let info = queue.queue[0].info.clone();
