@@ -190,6 +190,6 @@ fn main() {
     rocket::custom(cfg)
         .manage(queue.clone())
         .attach(make_cors())
-        .mount("/", routes![index, add, info])
+        .mount("/", routes![add, info])
         .launch();
 }
